@@ -1,0 +1,21 @@
+<script>
+	let sections = [
+		{ title: 'Projects', description: 'slkdslj kslk ' },
+		{ title: 'Quotes', description: 'sl djslfk sjkslk ' },
+		{ title: 'Stories', description: 'sf slkdf ;slk djslfk sjkslk ' }
+	];
+</script>
+
+<div class="container mx-auto mt-8">
+	<h2 class="text-2xl font-bold mx-4 mb-4">Things to look forward to</h2>
+
+	{#each sections as section (section.title)}
+		<a href="/" class="block card card-hover mx-4">
+			<header class="card-header text-xl">{section.title}</header>
+			<section class="p-4">{section.description}</section>
+		</a>
+	{/each}
+</div>
+
+<style>
+</style>
