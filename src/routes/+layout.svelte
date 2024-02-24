@@ -24,7 +24,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Dano the Bard</strong>
+				<a href="/"><strong class="text-xl uppercase">Dano the Bard</strong> </a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<a
