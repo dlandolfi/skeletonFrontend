@@ -10,7 +10,7 @@
 	<h2 class="text-2xl font-bold mx-4 mb-4">Things to look forward to</h2>
 
 	{#each sections as section (section.title)}
-		<a href="/" class="block card card-hover mx-4 my-4">
+		<a href="/{section.title.toLowerCase()}" class="block card card-hover mx-4 my-4">
 			<header class="card-header text-xl">{section.title}</header>
 			<section class="p-4">{section.description}</section>
 		</a>
