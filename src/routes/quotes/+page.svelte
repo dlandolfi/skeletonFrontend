@@ -4,6 +4,6 @@
 		<p>Nukes are not the answer.</p>
 		<p>They are the question.</p>
 		<p>And the answer is, "yes".</p>
-		<p><em>-Mahatma Gandhi</em></p>
+		<p class="py-2 text-sm"><em>Mahatma Gandhi</em> - Civilization</p>
 	</div>
 </div>
