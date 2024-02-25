@@ -1,82 +1,72 @@
 <script lang="ts">
 	let conn: WebSocket;
-	var msg = document.getElementById('msg');
-	var log = document.getElementById('log');
+	let messages: any[] = [];
+	let msg = '';
 
-	import { onMount } from 'svelte';
-
-	function appendLog(item: HTMLDivElement) {
+	function appendLog(item: { text: string }) {
+		messages = [...messages, item];
+		const log = document.getElementById('log');
 		if (log) {
-			const doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
-			log.appendChild(item);
-			if (doScroll) {
-				log.scrollTop = log.scrollHeight - log.clientHeight;
-			}
+			log.scrollTop = log.scrollHeight;
 		}
 	}
 
-	const handleSubmit = () => {
-		if (!conn) {
-			return false;
-		}
-		if (!msg) {
-			return false;
-		}
-		conn.send(msg);
-		msg = null;
-		return false;
-	};
+	function handleSubmit(event: { preventDefault: () => void }) {
+		event.preventDefault();
+		if (!conn) return;
+		if (!msg.trim()) return;
+		conn.send(msg.trim());
+		msg = '';
+	}
 
-	onMount(() => {
-		if (window.WebSocket) {
+	function initWebSocket() {
+		if ('WebSocket' in window) {
 			conn = new WebSocket(`ws://localhost:8080/ws`);
-			conn.onclose = (evt) => {
-				const item = document.createElement('div');
-				item.innerHTML = '<b>Connection closed.</b>';
-				appendLog(item);
+			conn.onclose = () => {
+				appendLog({ text: 'Connection closed.' });
 			};
 			conn.onmessage = (evt) => {
-				const messages = evt.data.split('\n');
-				messages.forEach((message: string) => {
-					const item = document.createElement('div');
-					item.innerText = message;
-					appendLog(item);
-				});
+				const newMessages = evt.data.split('\n').map((text: any) => ({ text }));
+				newMessages.forEach(appendLog);
 			};
 		} else {
-			const item = document.createElement('div');
-			item.innerHTML = '<b>Your browser does not support WebSockets.</b>';
-			appendLog(item);
+			appendLog({ text: 'Your browser does not support WebSockets.' });
 		}
-	});
+	}
+
+	$: initWebSocket(); // Initialize WebSocket on component mount
 </script>
 
-<div id="log" class="m-8 p-8 bg-white"></div>
-<form id="form" class="m-8" on:submit={handleSubmit}>
-	<input type="submit" value="Send" />
+<div id="log">
+	{#each messages as message}
+		<div>{message.text}</div>
+	{/each}
+</div>
+
+<form id="form" on:submit={handleSubmit}>
 	<input type="text" bind:value={msg} size="64" autofocus />
+	<button type="submit">Send</button>
 </form>
 
 <style>
-	/* #log {
+	#log {
 		background: white;
 		margin: 0;
-		padding: 0.5em 0.5em 0.5em 0.5em;
+		padding: 0.5em;
 		position: absolute;
-		top: 0.5em;
+		top: 5em;
 		left: 0.5em;
 		right: 0.5em;
 		bottom: 3em;
 		overflow: auto;
-	} */
+	}
 
-	/* #form {
-		padding: 0 0.5em 0 0.5em;
+	#form {
+		padding: 0 0.5em;
 		margin: 0;
 		position: absolute;
 		bottom: 1em;
-		left: 0px;
+		left: 0;
 		width: 100%;
-		overflow: hidden;
-	} */
+	}
 </style>
