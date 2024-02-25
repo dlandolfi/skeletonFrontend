@@ -22,7 +22,6 @@
 		if (!msg) {
 			return false;
 		}
-		console.log('msg', msg);
 		conn.send(msg);
 		msg = null;
 		return false;
