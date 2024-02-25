@@ -21,7 +21,7 @@
 
 	function initWebSocket() {
 		if ('WebSocket' in window) {
-			conn = new WebSocket(`ws://localhost:8080/ws`);
+			conn = new WebSocket(`ws://danothebard.com/ws`);
 			conn.onclose = () => {
 				appendLog({ text: 'Connection closed.' });
 			};
