@@ -22,14 +22,15 @@
 		if (!msg) {
 			return false;
 		}
-		conn.send(msg.innerHTML);
-		msg.innerHTML = '';
+		console.log('msg', msg);
+		conn.send(msg);
+		msg = null;
 		return false;
 	};
 
 	onMount(() => {
 		if (window.WebSocket) {
-			conn = new WebSocket(`ws://${document.location.host}/ws`);
+			conn = new WebSocket(`ws://localhost:8080/ws`);
 			conn.onclose = (evt) => {
 				const item = document.createElement('div');
 				item.innerHTML = '<b>Connection closed.</b>';
@@ -51,7 +52,7 @@
 	});
 </script>
 
-<div id="log" class="m-8 p-8"></div>
+<div id="log" class="m-8 p-8 bg-white"></div>
 <form id="form" class="m-8" on:submit={handleSubmit}>
 	<input type="submit" value="Send" />
 	<input type="text" bind:value={msg} size="64" autofocus />
