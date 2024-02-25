@@ -37,19 +37,19 @@
 	$: initWebSocket(); // Initialize WebSocket on component mount
 </script>
 
-<div id="log">
+<div id="log" class="p-4 m-4 bg-white h-80 text-primary-500 overflow-auto">
 	{#each messages as message}
 		<div>{message.text}</div>
 	{/each}
 </div>
 
-<form id="form" on:submit={handleSubmit}>
-	<input type="text" bind:value={msg} size="64" autofocus />
-	<button type="submit">Send</button>
+<form id="form" class="mx-4 text-secondary-500" on:submit={handleSubmit}>
+	<button type="submit" class="btn variant-filled-surface">Send</button>
+	<input type="text" class="ml-4" bind:value={msg} />
 </form>
 
 <style>
-	#log {
+	/* #log {
 		background: white;
 		margin: 0;
 		padding: 0.5em;
@@ -68,5 +68,5 @@
 		bottom: 1em;
 		left: 0;
 		width: 100%;
-	}
+	} */
 </style>
