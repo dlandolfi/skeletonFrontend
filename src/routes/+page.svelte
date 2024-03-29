@@ -1,6 +1,6 @@
 <script>
 	let sections = [
-		{ title: 'Projects', description: 'Projects showcase' },
+		{ title: 'Chat', description: 'Chat that interacts with Go Websockets' },
 		{ title: 'Quotes', description: 'Favorite quotes coming soon' },
 		{ title: 'Stories', description: 'Stories on the way' }
 	];
