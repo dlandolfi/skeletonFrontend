@@ -21,7 +21,7 @@
 
 	function initWebSocket() {
 		if ('WebSocket' in window) {
-			conn = new WebSocket('wss://' + document.location.host + '/api/ws');
+			conn = new WebSocket('wss://danothebard.com/api/ws');
 			// local testing
 			// conn = new WebSocket('ws://' + document.location.hostname + ':8080' + '/api/ws');
 			console.log('doc host', document.location);
